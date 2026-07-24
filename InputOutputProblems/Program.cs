@@ -19,10 +19,18 @@ prob15();
 prob16();
 
 
+l2prob1();
+l2prob2();
+l2prob3();
+l2prob4();
 l2prob5();
-l2prob5();
-l2prob5();
-l2prob5();
+l2prob6();
+l2prob7();
+l2prob8();
+l2prob9();
+l2prob10();
+l2prob11();
+l2prob12();
 
 
 static void prob1()
@@ -39,7 +47,7 @@ static void prob3()
 }
 static void prob4()
 {
-    Console.WriteLine("The Cost Price is INR 129 and Selling Price is INR 191\nThe Profit is INR"+(129-191)+ "and the Profit Percentage is "+(((191-129)/129)*100));
+    Console.WriteLine("The Cost Price is INR 129 and Selling Price is INR 191\nThe Profit is INR"+(191 - 129) + "and the Profit Percentage is "+(((191-129)/129.0)*100));
 }
 static void prob5()
 {
@@ -66,7 +74,7 @@ static void prob9()
 {
     int fee = Convert.ToInt32(Console.ReadLine());
     int disPe = Convert.ToInt32(Console.ReadLine());
-    double discount = 125000.0 * (disPe / 100.0);
+    double discount = fee * (disPe / 100.0);
     Console.WriteLine("The discount amount is INR " + discount + "and final discounted fee is INR " + (fee - discount));
 }
 static void prob10()
@@ -155,7 +163,7 @@ static void l2prob7()
     int temp = num1;
     num1 = num2;
     num2 = temp;
-    Console.WriteLine("The swapped numbers are "+num2+" and "+num1);
+    Console.WriteLine("The swapped numbers are "+num1+" and "+num2);
 }
 static void l2prob8()
 {
