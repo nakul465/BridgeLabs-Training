@@ -1,7 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System;
+using Methods;
 
-Console.WriteLine("Hello, World!");
+//l3prob1.l3pob1();
 
 static void l1prob1()
 {
