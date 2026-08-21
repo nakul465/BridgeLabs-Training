@@ -5,7 +5,7 @@ namespace AlgorithmComplexity
 	{
 		
         static int[] arr = Enumerable.Range(1, 1_000_000).ToArray();
-		static int n =0;
+		static int n = 999998;
         public static int LinearSearch()
 		{
 			for(int i = 0; i < arr.Length; i++)
