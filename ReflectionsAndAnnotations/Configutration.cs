@@ -1,11 +1,9 @@
 ﻿using System;
 namespace ReflectionsAndAnnotations
 {
-	public class Configutration
-	{
-		public Configutration()
-		{
-		}
-	}
+    class Configuration
+    {
+        private static string API_KEY = "OLD_KEY";
+    }
 }
 

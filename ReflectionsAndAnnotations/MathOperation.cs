@@ -1,11 +1,23 @@
 ﻿using System;
 namespace ReflectionsAndAnnotations
 {
-	public class MathOperation
-	{
-		public MathOperation()
-		{
-		}
-	}
+    class MathOperations
+    {
+        public int Add(int a, int b)
+        {
+            return a + b;
+        }
+
+        public int Subtract(int a, int b)
+        {
+            return a - b;
+        }
+
+        public int Multiply(int a, int b)
+        {
+            return a * b;
+        }
+    }
+
 }
 
