@@ -27,7 +27,6 @@ namespace ReflectionsAndAnnotations
             this.age = age;
         }
 
-        // Reflection methods inside Person
         public void DisplayFields()
         {
             Type type = typeof(Person);
