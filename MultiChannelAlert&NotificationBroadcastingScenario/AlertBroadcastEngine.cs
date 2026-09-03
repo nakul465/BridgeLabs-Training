@@ -81,7 +81,7 @@ namespace MultiChannelAlert_NotificationBroadcastingScenario
     }
 
 
-    class InvalidAlertSeverityException : Exception
+    public class InvalidAlertSeverityException : Exception
     {
         public int InvalidSeverity{get;set;}
 		public InvalidAlertSeverityException(int severity):base($"Invalid Alert Severity {severity}")
@@ -232,6 +232,17 @@ namespace MultiChannelAlert_NotificationBroadcastingScenario
             };
         }
 
+        public static Predicate<AlertEvent> CreateDeduplicationRule(TimeSpan window)
+        {
+            List<AlertEvent> previousAlerts = new();
+            return alert =>
+            {
+                bool duplicate = previousAlerts.Any(previous => previous.Source == alert.Source && previous.Category == alert.Category && previous.Message == alert.Message && Math.Abs((alert.Timestamp - previous.Timestamp).TotalSeconds) <= window.TotalSeconds);
+                previousAlerts.Add(alert);
+                return !duplicate;
+            };
+        }
+
         public static Func<IEnumerable<AlertEvent>,AlertEvent,TimeSpan?> CreateTimeSinceLastAlertCalculator()
         {
             return (alerts, currentAlert) =>
@@ -291,7 +302,7 @@ namespace MultiChannelAlert_NotificationBroadcastingScenario
             bool liveEscalation =escalationRule(alert);
             return attributeBaseline || liveEscalation;
         }
-
+         
         public void ProcessBatch(IEnumerable<AlertEvent> alerts, AlertDispatchSession session, Predicate<AlertEvent> escalationRule, Func<AlertEvent, bool> rateLimitRule, Predicate<AlertEvent> deduplicationRule, Func<string, bool>? failingChannel = null)
         {
             HashSet<string> alertIds = new();
@@ -360,6 +371,33 @@ namespace MultiChannelAlert_NotificationBroadcastingScenario
         public string GetNoisiestSource(IEnumerable<AlertEvent> alerts)
         {
             return alerts.GroupBy(alert => alert.Source).OrderByDescending(group => group.Count()).Select(group => group.Key).First();
+        }
+
+
+        public Dictionary<string, double> GetAlertFrequencyPerHour(IEnumerable<AlertEvent> alerts)
+        {
+            return alerts.GroupBy(alert => alert.Source).ToDictionary(group => group.Key, group =>
+            {
+                DateTime min = group.Min(alert => alert.Timestamp);
+                DateTime max = group.Max(alert => alert.Timestamp);
+                double hours = Math.Max((max - min).TotalHours, 1.0);
+                return group.Count() / hours;
+            });
+        }
+
+        public Dictionary<string, double> GetMeanTimeBetweenAlerts(IEnumerable<AlertEvent> alerts)
+        {
+            return alerts.GroupBy(alert => alert.Category).ToDictionary(group => group.Key, group =>
+            {
+                List<DateTime> times = group.OrderBy(alert => alert.Timestamp).Select(alert => alert.Timestamp).ToList();
+                if (times.Count < 2)return 0;
+                List<double> differences = new();
+                for (int i = 1; i < times.Count; i++)
+                {
+                    differences.Add((times[i] - times[i - 1]).TotalMinutes);
+                }
+                return differences.Average();
+            });
         }
     }
 }
