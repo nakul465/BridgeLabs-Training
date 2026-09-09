@@ -1,0 +1,46 @@
+[
+  {
+    "Name": "Tigers",
+    "Played": 3,
+    "Won": 1,
+    "Draw": 2,
+    "Lost": 0,
+    "GoalsFor": 3,
+    "GoalsAgainst": 2,
+    "GoalDifference": 1,
+    "Points": 5
+  },
+  {
+    "Name": "Wolves",
+    "Played": 1,
+    "Won": 0,
+    "Draw": 1,
+    "Lost": 0,
+    "GoalsFor": 1,
+    "GoalsAgainst": 1,
+    "GoalDifference": 0,
+    "Points": 1
+  },
+  {
+    "Name": "Eagles",
+    "Played": 1,
+    "Won": 0,
+    "Draw": 1,
+    "Lost": 0,
+    "GoalsFor": 0,
+    "GoalsAgainst": 0,
+    "GoalDifference": 0,
+    "Points": 1
+  },
+  {
+    "Name": "Lions",
+    "Played": 1,
+    "Won": 0,
+    "Draw": 0,
+    "Lost": 1,
+    "GoalsFor": 1,
+    "GoalsAgainst": 2,
+    "GoalDifference": -1,
+    "Points": 0
+  }
+]
