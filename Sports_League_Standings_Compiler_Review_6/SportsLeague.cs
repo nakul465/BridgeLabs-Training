@@ -50,7 +50,7 @@ namespace Sports_League_Standings_Compiler_Review_6
 
     public class TeamsData
     {
-        public List<string> Teams { get; set; }
+        public List<string>? Teams { get; set; }
     }
 
     public class Team
@@ -235,7 +235,7 @@ namespace Sports_League_Standings_Compiler_Review_6
             string? header = reader.ReadLine();
             if (header == null)
                 return matches;
-            string line;
+            string? line;
             while ((line = reader.ReadLine()) != null)
             {
                 if (string.IsNullOrWhiteSpace(line))

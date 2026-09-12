@@ -8,14 +8,7 @@ public class Tests
     [SetUp]
     public void Setup()
     {
-        processor = new LeagueProcessor(
-            new List<string>
-            {
-                    "Tigers",
-                    "Lions",
-                    "Eagles",
-                    "Wolves"
-            });
+        processor = new LeagueProcessor(new List<string>{"Tigers","Lions","Eagles","Wolves"});
     }
 
     [Test]
@@ -145,6 +138,30 @@ public class Tests
                 HomeScore = 1,
                 AwayScore = 0
             }));
+    }
+
+    [Test]
+    public void CorrectPointsCalculation()
+    {
+        processor.ProcessMatch(new Match
+        {
+            MatchId = "M1",
+            HomeTeam = "Tigers",
+            AwayTeam = "Lions",
+            HomeScore = 2,
+            AwayScore = 0
+        });
+
+        processor.ProcessMatch(new Match
+        {
+            MatchId = "M2",
+            HomeTeam = "Tigers",
+            AwayTeam = "Eagles",
+            HomeScore = 1,
+            AwayScore = 1
+        });
+        Team tiger = processor.GetStandings().First(t => t.Name == "Tigers");
+        Assert.That(tiger.Points, Is.EqualTo(4));
     }
 
 }
